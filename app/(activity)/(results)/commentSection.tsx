@@ -1,9 +1,9 @@
 import { View, Text } from "react-native"
 
-export default function Profile() {
+export default function CommentSection() {
     return (
         <View>
-            <Text> This is profile </Text>
+            <Text> This is commentsection </Text>
         </View>
     )
 }
