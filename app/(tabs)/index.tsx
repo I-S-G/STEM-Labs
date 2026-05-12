@@ -1,17 +1,32 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
-
+import { Text, View, FlatList, StyleSheet } from "react-native";
+import Activity from "@/components/activity";
+import { Activities } from "@/data/activities";
 export default function Home() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text> Home </Text>
-      <Link href= "/activity"> Activity 1 </Link>
+    <View style= {styles.container}>
+      <Text style={styles.title}> Choose Activity </Text>
+      <FlatList
+        data={Activities}
+        renderItem={({item}) => <Activity activity= {item} />}
+        keyExtractor={item => item.title}
+        contentContainerStyle= {{
+          paddingBottom: 150,
+        }}
+       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#404A52',
+  },
+  title: {
+    fontSize: 40,
+    textAlign: "center",
+    color: "white",
+    marginBottom: 10,
+    marginTop: 70,
+  },
+})
+
