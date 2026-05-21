@@ -1,4 +1,4 @@
-import { Text, View, FlatList, StyleSheet } from "react-native";
+import { Text, View, FlatList } from "react-native";
 import Activity from "@/components/activity";
 import { Activities } from "@/data/activities";
 import { globalStyles } from "@/styles/globalStyles";
