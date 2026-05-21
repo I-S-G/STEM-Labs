@@ -10,7 +10,14 @@ export const globalStyles = StyleSheet.create({
     fontSize: 40,
     textAlign: "center",
     color: "white",
-    marginBottom: 10,
+    marginBottom: 20,
     marginTop: 70,
+  },
+  titleWithHeader: {
+    fontSize: 40,
+    textAlign: "center",
+    color: "white",
+    marginBottom: 20,
+    marginTop: 20,
   },
 })
