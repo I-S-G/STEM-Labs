@@ -1,5 +1,5 @@
 import { Href, Link } from "expo-router";
-import { ActivityProps } from "@/types/activity";
+import { ActivityProps } from "@/types/types";
 import { View, Text, StyleSheet } from "react-native"
 
 
