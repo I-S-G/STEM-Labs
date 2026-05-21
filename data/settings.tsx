@@ -4,15 +4,15 @@ export const settingsMap = [
         column: [
             {
                 name: "First Name",
-                route: "/modals/firstName"
+                route: "/setting/firstName"
             },
             {
                 name: "Password",
-                route: "/modals/password"
+                route: "/setting/password"
             },
             {
                 name: "Email",
-                route: "/modals/email"
+                route: "/setting/email"
             }
         ],
     },
@@ -21,11 +21,11 @@ export const settingsMap = [
         column: [
             {
                 name: "Team",
-                route: "/modals/team"
+                route: "/setting/team"
             },
             {
                 name: "Team Name",
-                route: "/modals/teamName"
+                route: "/setting/teamName"
             },
         ],
     },
@@ -34,7 +34,7 @@ export const settingsMap = [
         column: [
             {
                 name: "Theme",
-                route: "/modals/theme"
+                route: "/setting/theme"
             },
         ],
     },

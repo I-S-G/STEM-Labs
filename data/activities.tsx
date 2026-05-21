@@ -1,4 +1,4 @@
-import { ActivityProps } from "@/types/activity"
+import { ActivityProps } from "@/types/types"
 
 export const Activities: ActivityProps[] = [
   {
