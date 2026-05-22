@@ -1,13 +1,15 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet, TextInputProps } from "react-native";
+import { View, Text, TextInput, StyleSheet, TextInputProps, ViewStyle } from "react-native";
 
 type InputProps = TextInputProps & {
-  label: string;
+  label: string,
+  style?: ViewStyle
+
 };
 
-export default function Input({ label, ...props }: InputProps) {
+export default function Input({ label, style, ...props }: InputProps) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Text style={styles.label}>{label}</Text>
 
       <TextInput
@@ -22,7 +24,7 @@ export default function Input({ label, ...props }: InputProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    marginBottom: 0,
     padding: 10
   },
   label: {
