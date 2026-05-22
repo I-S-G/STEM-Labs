@@ -9,8 +9,8 @@ export default function Login() {
         <View style= {globalStyles.screen}>
             <Text style= {globalStyles.title}> STEMM LABS </Text>
             <View style= {styles.form}>
-                <Input label="Email" />
-                <Input label="Password" />
+                <Input label="Email" style= {styles.input} />
+                <Input label="Password" style= {styles.input} />
                 <DefaultButton title="Login" onPress={() => router.push("/")} />
             </View>
             <Link href= '/signup'>
@@ -30,5 +30,8 @@ const styles = StyleSheet.create({
         color: "#ea00ff",
         textDecorationLine: "underline"
 
+    },
+    input: {
+        marginBottom: 15
     }
 })
