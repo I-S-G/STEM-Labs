@@ -3,43 +3,24 @@ import { router, Link } from "expo-router";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Input from "@/components/input";
 import DefaultButton from "@/components/defaultButton";
+import { signupSchema, SignupForm } from "@/schemas/signup.schema";
+import { useSignupStore } from "@/store/signupStore";
 
-const signupSchema = z
-  .object({
-    name: z
-      .string()
-      .min(1, "Name is required"),
 
-    email: z
-      .email("Enter a valid email")
-      .min(1, "Email is required"),
-
-    password: z
-      .string()
-      .min(6, "Password must be at least 6 characters"),
-
-    retypePassword: z
-      .string()
-      .min(1, "Please retype your password"),
-  })
-  .refine((data) => data.password === data.retypePassword, {
-    message: "Passwords do not match",
-    path: ["retypePassword"],
-  });
-
-type FormFields = z.infer<typeof signupSchema>;
 
 export default function Signup() {
+
+  const { setSignupData } = useSignupStore();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormFields>({
+  } = useForm<SignupForm>({
     resolver: zodResolver(signupSchema),
 
     defaultValues: {
@@ -50,9 +31,9 @@ export default function Signup() {
     },
   });
 
-  const onSubmit:SubmitHandler<FormFields> = (data) => {
-    console.log(data);
-
+  const onSubmit:SubmitHandler<SignupForm> = (data) => {
+    setSignupData(data);
+    alert(JSON.stringify(data));
     router.push("/teamSignup");
   };
 
@@ -150,7 +131,7 @@ export default function Signup() {
         )}
 
         <DefaultButton
-          title="Sign Up"
+          title="Next"
           style={{ marginTop: 20 }}
           onPress={handleSubmit(onSubmit)}
         />

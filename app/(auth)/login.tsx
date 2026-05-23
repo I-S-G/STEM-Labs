@@ -3,30 +3,21 @@ import { router, Link } from "expo-router";
 import { View, Text, StyleSheet } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Input from "@/components/input";
 import DefaultButton from "@/components/defaultButton";
+import { loginSchema, LoginForm } from "@/schemas/login.schema";
 
-const loginSchema = z.object({
-  email: z
-    .email("Enter a valid email")
-    .min(1, "Email is required"),
 
-  password: z
-    .string()
-    .min(6, "Password must be at least 6 characters"),
-});
 
-type FormFields = z.infer<typeof loginSchema>;
 
 export default function Login() {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormFields>({
+  } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
 
     defaultValues: {
@@ -35,9 +26,8 @@ export default function Login() {
     },
   });
 
-  const onSubmit:SubmitHandler<FormFields> = async (data) => {
-    console.log(data);
-
+  const onSubmit:SubmitHandler<LoginForm> = async (data) => {
+    alert(JSON.stringify(data));
     router.push("/");
   };
 
