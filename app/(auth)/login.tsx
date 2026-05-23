@@ -1,37 +1,127 @@
-import { globalStyles } from "@/styles/globalStyles"
-import { router, Link } from "expo-router"
-import { View, Text, StyleSheet } from "react-native"
-import Input from "@/components/input"
-import DefaultButton from "@/components/defaultButton"
+import { globalStyles } from "@/styles/globalStyles";
+import { router, Link } from "expo-router";
+import { View, Text, StyleSheet } from "react-native";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import Input from "@/components/input";
+import DefaultButton from "@/components/defaultButton";
+
+const loginSchema = z.object({
+  email: z
+    .email("Enter a valid email")
+    .min(1, "Email is required"),
+
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters"),
+});
+
+type FormFields = z.infer<typeof loginSchema>;
 
 export default function Login() {
-    return (
-        <View style= {globalStyles.screen}>
-            <Text style= {globalStyles.title}> STEMM LABS </Text>
-            <View style= {styles.form}>
-                <Input label="Email" style= {styles.input} />
-                <Input label="Password" style= {styles.input} />
-                <DefaultButton title="Login" onPress={() => router.push("/")} />
-            </View>
-            <Link href= '/signup'>
-                <Text style= {styles.signupLink}> Signup Instead </Text>
-            </Link>
-        </View>
-    )
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormFields>({
+    resolver: zodResolver(loginSchema),
+
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit:SubmitHandler<FormFields> = async (data) => {
+    console.log(data);
+
+    router.push("/");
+  };
+
+  return (
+    <View style={globalStyles.screen}>
+      <Text style={globalStyles.title}>STEMM LABS</Text>
+
+      <View style={styles.form}>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Input
+              label="Email"
+              style={styles.input}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+          )}
+        />
+
+        {errors.email && (
+          <Text style={styles.error}>
+            {errors.email.message}
+          </Text>
+        )}
+
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Input
+              label="Password"
+              style={styles.input}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              secureTextEntry
+            />
+          )}
+        />
+
+        {errors.password && (
+          <Text style={styles.error}>
+            {errors.password.message}
+          </Text>
+        )}
+
+        <DefaultButton
+          title="Login"
+          onPress={handleSubmit(onSubmit)}
+        />
+      </View>
+
+      <Link href="/signup">
+        <Text style={styles.signupLink}>
+          Signup Instead
+        </Text>
+      </Link>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    form: {
-        marginTop: 20,
-        marginBottom: 40,
-    },
-    signupLink: {
-        textAlign: "center",
-        color: "#ea00ff",
-        textDecorationLine: "underline"
+  form: {
+    marginTop: 20,
+    marginBottom: 40,
+  },
 
-    },
-    input: {
-        marginBottom: 15
-    }
-})
+  signupLink: {
+    textAlign: "center",
+    color: "#ea00ff",
+    textDecorationLine: "underline",
+  },
+
+  input: {
+    marginBottom: 15,
+  },
+
+  error: {
+    color: "red",
+    marginBottom: 10,
+  },
+});
