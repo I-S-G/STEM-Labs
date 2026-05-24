@@ -51,7 +51,13 @@ export const createUser = async (
       ...teamInfo,
     });
   } catch (err) {
-    await deleteUser(userAuth)
-    throw new Error("Failed")
+    await deleteUser(userAuth);
+    throw new Error("Failed");
   }
+};
+
+export const getUserData = async (uid: string) => {
+  const userDocRef = doc(db, "users", uid);
+  const userSnapshot = await getDoc(userDocRef);
+  return userSnapshot.data();
 };

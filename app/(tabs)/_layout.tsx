@@ -1,7 +1,18 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
+import { useEffect } from "react";
 import { Image } from "react-native";
+import { useUserStore } from "@/store/userStore";
 
 export default function TabLayout() {
+  const router = useRouter();
+  const currentUser = useUserStore((s) => s.currentUser);
+
+  useEffect(() => {
+    if (!currentUser) {
+      router.replace("/signup");
+    }
+  }, [currentUser]);
+
   return (
     <Tabs
       screenOptions={{
