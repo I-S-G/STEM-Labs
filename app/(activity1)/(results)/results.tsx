@@ -1,9 +1,9 @@
-import { View, Text } from "react-native"
+import { View, Text } from "react-native";
 
 export default function Results() {
-    return (
-        <View>
-            <Text> This is results </Text>
-        </View>
-    )
+  return (
+    <View>
+      <Text> This is results </Text>
+    </View>
+  );
 }

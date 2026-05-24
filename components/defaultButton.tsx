@@ -1,5 +1,11 @@
 import React from "react";
-import { Pressable, Text, StyleSheet, ViewStyle, TextStyle } from "react-native";
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 
 type ButtonProps = {
   title: string;
@@ -41,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "80%",
-    alignSelf: "center"
+    alignSelf: "center",
   },
   text: {
     color: "#fff",

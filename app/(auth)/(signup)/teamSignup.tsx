@@ -1,44 +1,106 @@
-import { globalStyles } from "@/styles/globalStyles"
-import { router, Link } from "expo-router"
-import { View, ScrollView, Text, StyleSheet } from "react-native"
-import Input from "@/components/input"
-import DefaultButton from "@/components/defaultButton"
+import { globalStyles } from "@/styles/globalStyles";
+import { router, Link } from "expo-router";
+import { View, ScrollView, Text } from "react-native";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import Input from "@/components/input";
+import DefaultButton from "@/components/defaultButton";
+import { teamSignupSchema, TeamSignupForm } from "@/schemas/teamSignup.schema";
+import { SignupData, TeamData, useSignupStore } from "@/store/signupStore";
+import { authStyles } from "@/styles/authStyles";
+import { signUpWithEmail } from "@/utils/firebase/auth";
+import { createUser } from "@/utils/firebase/users";
 
 export default function TeamSignup() {
-    return (
-        <ScrollView style= {globalStyles.screen}>
-            <Text style= {globalStyles.title}> STEMM LABS </Text>
-            <View style= {styles.form}>
-                <Text style= {styles.subheading}> Create New Team </Text>
-                <Input label="Team Name" />
-                <Text style= {styles.subheading}> OR </Text>
-                <Text style= {styles.subheading}> Join An Existing Team </Text>
-                <Input label="Team Discriminator" style={{marginTop: 10}} />
-                <DefaultButton title="Sign Up" style={{marginTop: 20}} onPress={() => router.push("/")} />
-            </View>
-            <Link href= '/login'>
-                <Text style= {styles.signupLink}> Logout </Text>
-            </Link>
-        </ScrollView>
-    )
-}
+  const { signupData, setTeamData, clear } = useSignupStore();
 
-const styles = StyleSheet.create({
-    form: {
-        marginTop: 20,
-        marginBottom: 40,
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TeamSignupForm>({
+    resolver: zodResolver(teamSignupSchema),
+    defaultValues: {
+      teamName: "",
+      teamDiscriminator: "",
     },
-    signupLink: {
-        textAlign: "center",
-        color: "#ea00ff",
-        textDecorationLine: "underline"
+  });
 
-    },
-    subheading: {
-        color: "white",
-        textAlign: "center",
-        fontSize: 18,
-        marginTop: 5,
-        marginBottom: 5
+  const onSubmit: SubmitHandler<TeamSignupForm> = async (teamData) => {
+    setTeamData(teamData);
+
+    const finalPayload: TeamData & SignupData = {
+      ...(signupData as SignupData),
+      ...teamData,
+    };
+
+    const { user } = await signUpWithEmail(
+      finalPayload.email,
+      finalPayload.password,
+    );
+
+    try {
+      await createUser(user, finalPayload);
+
+      alert("User Created:" + JSON.stringify(user));
+
+      clear();
+      router.push("/");
+    } catch (e) {
+      alert("Failed, Make sure discriminator is valid");
     }
-})
+  };
+  return (
+    <ScrollView style={globalStyles.screen}>
+      <Text style={globalStyles.title}>STEMM LABS</Text>
+
+      <View style={authStyles.form}>
+        <Text style={authStyles.subheading}>Create New Team</Text>
+
+        <Controller
+          control={control}
+          name="teamName"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Input
+              label="Team Name"
+              style={authStyles.input}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+            />
+          )}
+        />
+
+        <Text style={authStyles.subheading}>OR</Text>
+
+        <Text style={authStyles.subheading}>Join An Existing Team</Text>
+
+        <Controller
+          control={control}
+          name="teamDiscriminator"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Input
+              label="Team Discriminator"
+              style={authStyles.input}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+            />
+          )}
+        />
+
+        {errors.teamName && (
+          <Text style={authStyles.error}>{errors.teamName.message}</Text>
+        )}
+
+        <DefaultButton
+          title="Sign Up"
+          style={{ marginTop: 20 }}
+          onPress={handleSubmit(onSubmit)}
+        />
+      </View>
+    </ScrollView>
+  );
+}

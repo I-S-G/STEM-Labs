@@ -1,5 +1,5 @@
 export type ActivityProps = {
-    title: string, 
-    url: string, 
-    description: string
-}
+  title: string;
+  url: string;
+  description: string;
+};
