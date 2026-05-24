@@ -2,20 +2,19 @@ import { Stack } from "expo-router";
 
 export default function ResultsLayout() {
   return (
-    <Stack screenOptions= {{ headerShown: false }}>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="results"
-        options= {{
+        options={{
           title: "Results",
         }}
-       />
-       <Stack.Screen
+      />
+      <Stack.Screen
         name="commmentSection"
-        options= {{
+        options={{
           title: "Comment Section",
         }}
-       />
-       
+      />
     </Stack>
   );
 }

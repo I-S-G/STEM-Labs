@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
-type SignupData = {
+export type SignupData = {
   name: string;
   email: string;
   password: string;
 };
 
-type TeamData = {
+export type TeamData = {
   teamName?: string;
   teamDiscriminator?: string;
 };

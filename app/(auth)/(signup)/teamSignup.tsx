@@ -1,19 +1,19 @@
 import { globalStyles } from "@/styles/globalStyles";
 import { router, Link } from "expo-router";
-import { View, ScrollView, Text, StyleSheet } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Input from "@/components/input";
 import DefaultButton from "@/components/defaultButton";
 import { teamSignupSchema, TeamSignupForm } from "@/schemas/teamSignup.schema";
-import { useSignupStore } from "@/store/signupStore";
-
+import { SignupData, TeamData, useSignupStore } from "@/store/signupStore";
+import { authStyles } from "@/styles/authStyles";
+import { signUpWithEmail } from "@/utils/firebase/auth";
+import { createUser } from "@/utils/firebase/users";
 
 export default function TeamSignup() {
-
   const { signupData, setTeamData, clear } = useSignupStore();
 
   const {
@@ -28,26 +28,36 @@ export default function TeamSignup() {
     },
   });
 
-const onSubmit:SubmitHandler<TeamSignupForm> = (teamData) => {
-  setTeamData(teamData);
+  const onSubmit: SubmitHandler<TeamSignupForm> = async (teamData) => {
+    setTeamData(teamData);
 
-  const finalPayload = {
-    ...signupData,
-    ...teamData,
+    const finalPayload: TeamData & SignupData = {
+      ...(signupData as SignupData),
+      ...teamData,
+    };
+
+    const { user } = await signUpWithEmail(
+      finalPayload.email,
+      finalPayload.password,
+    );
+
+    try {
+      await createUser(user, finalPayload);
+
+      alert("User Created:" + JSON.stringify(user));
+
+      clear();
+      router.push("/");
+    } catch (e) {
+      alert("Failed, Make sure discriminator is valid");
+    }
   };
-
-  alert("CREATE USER:" + JSON.stringify(finalPayload));
-  clear();
-  router.push("/");
-};
   return (
     <ScrollView style={globalStyles.screen}>
       <Text style={globalStyles.title}>STEMM LABS</Text>
 
-      <View style={styles.form}>
-        <Text style={styles.subheading}>
-          Create New Team
-        </Text>
+      <View style={authStyles.form}>
+        <Text style={authStyles.subheading}>Create New Team</Text>
 
         <Controller
           control={control}
@@ -55,7 +65,7 @@ const onSubmit:SubmitHandler<TeamSignupForm> = (teamData) => {
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
               label="Team Name"
-              style={styles.input}
+              style={authStyles.input}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -63,11 +73,9 @@ const onSubmit:SubmitHandler<TeamSignupForm> = (teamData) => {
           )}
         />
 
-        <Text style={styles.subheading}>OR</Text>
+        <Text style={authStyles.subheading}>OR</Text>
 
-        <Text style={styles.subheading}>
-          Join An Existing Team
-        </Text>
+        <Text style={authStyles.subheading}>Join An Existing Team</Text>
 
         <Controller
           control={control}
@@ -75,7 +83,7 @@ const onSubmit:SubmitHandler<TeamSignupForm> = (teamData) => {
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
               label="Team Discriminator"
-              style={styles.input}
+              style={authStyles.input}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -84,9 +92,7 @@ const onSubmit:SubmitHandler<TeamSignupForm> = (teamData) => {
         />
 
         {errors.teamName && (
-          <Text style={styles.error}>
-            {errors.teamName.message}
-          </Text>
+          <Text style={authStyles.error}>{errors.teamName.message}</Text>
         )}
 
         <DefaultButton
@@ -95,37 +101,6 @@ const onSubmit:SubmitHandler<TeamSignupForm> = (teamData) => {
           onPress={handleSubmit(onSubmit)}
         />
       </View>
-
-      <Link href="/login">
-        <Text style={styles.signupLink}>Logout</Text>
-      </Link>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  form: {
-    marginTop: 20,
-    marginBottom: 40,
-  },
-  signupLink: {
-    textAlign: "center",
-    color: "#ea00ff",
-    textDecorationLine: "underline",
-  },
-  subheading: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 18,
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  input: {
-    marginBottom: 15,
-  },
-  error: {
-    color: "red",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-});

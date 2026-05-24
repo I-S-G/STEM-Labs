@@ -2,11 +2,11 @@ import { StyleSheet } from "react-native";
 import { Colors } from "@/constants/colors";
 
 export const globalStyles = StyleSheet.create({
-    screen: {
-        backgroundColor: Colors.background,
-        flex: 1,
-    },
-    title: {
+  screen: {
+    backgroundColor: Colors.background,
+    flex: 1,
+  },
+  title: {
     fontSize: 40,
     textAlign: "center",
     color: "white",
@@ -20,4 +20,4 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
-})
+});

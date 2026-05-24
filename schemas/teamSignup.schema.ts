@@ -12,15 +12,14 @@ export const teamSignupSchema = z
 
       // must pick ONLY one
       return (
-        (hasTeamName && !hasDiscriminator) ||
-        (!hasTeamName && hasDiscriminator)
+        (hasTeamName && !hasDiscriminator) || (!hasTeamName && hasDiscriminator)
       );
     },
     {
       message:
         "Enter a Team Name OR a Team Discriminator (not both) (required)",
       path: ["teamName"],
-    }
+    },
   );
 
-  export type TeamSignupForm = z.infer<typeof teamSignupSchema>;
+export type TeamSignupForm = z.infer<typeof teamSignupSchema>;

@@ -1,4 +1,4 @@
-import { ActivityProps } from "@/types/types"
+import { ActivityProps } from "@/types/types";
 
 export const Activities: ActivityProps[] = [
   {
@@ -36,4 +36,4 @@ export const Activities: ActivityProps[] = [
     url: "/activity7",
     description: "Description about this activity",
   },
-]
+];

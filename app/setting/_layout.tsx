@@ -5,9 +5,7 @@ import { Colors } from "@/constants/colors";
 
 export default function SettingLayout() {
   return (
-
     <View style={styles.container}>
-
       <View style={styles.header}>
         <BackButton />
       </View>
@@ -15,7 +13,6 @@ export default function SettingLayout() {
       <View style={styles.content}>
         <Stack screenOptions={{ headerShown: false }} />
       </View>
-
     </View>
   );
 }
@@ -23,14 +20,13 @@ export default function SettingLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: `${Colors.header}`
+    backgroundColor: `${Colors.header}`,
   },
   header: {
     paddingHorizontal: 10,
     flexDirection: "row",
     marginTop: 60,
     paddingBottom: 15,
-
   },
   content: {
     flex: 1,

@@ -1,6 +1,6 @@
 import { globalStyles } from "@/styles/globalStyles";
 import { router, Link } from "expo-router";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,9 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@/components/input";
 import DefaultButton from "@/components/defaultButton";
 import { loginSchema, LoginForm } from "@/schemas/login.schema";
-
-
-
+import { authStyles } from "@/styles/authStyles";
+import { signInWithEmail } from "@/utils/firebase/auth";
 
 export default function Login() {
   const {
@@ -26,8 +25,9 @@ export default function Login() {
     },
   });
 
-  const onSubmit:SubmitHandler<LoginForm> = async (data) => {
-    alert(JSON.stringify(data));
+  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
+    const { user } = await signInWithEmail(data.email, data.password);
+    alert(JSON.stringify(user));
     router.push("/");
   };
 
@@ -35,14 +35,14 @@ export default function Login() {
     <View style={globalStyles.screen}>
       <Text style={globalStyles.title}>STEMM LABS</Text>
 
-      <View style={styles.form}>
+      <View style={authStyles.form}>
         <Controller
           control={control}
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
               label="Email"
-              style={styles.input}
+              style={authStyles.input}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -53,9 +53,7 @@ export default function Login() {
         />
 
         {errors.email && (
-          <Text style={styles.error}>
-            {errors.email.message}
-          </Text>
+          <Text style={authStyles.error}>{errors.email.message}</Text>
         )}
 
         <Controller
@@ -64,7 +62,7 @@ export default function Login() {
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
               label="Password"
-              style={styles.input}
+              style={authStyles.input}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -74,44 +72,15 @@ export default function Login() {
         />
 
         {errors.password && (
-          <Text style={styles.error}>
-            {errors.password.message}
-          </Text>
+          <Text style={authStyles.error}>{errors.password.message}</Text>
         )}
 
-        <DefaultButton
-          title="Login"
-          onPress={handleSubmit(onSubmit)}
-        />
+        <DefaultButton title="Login" onPress={handleSubmit(onSubmit)} />
       </View>
 
       <Link href="/signup">
-        <Text style={styles.signupLink}>
-          Signup Instead
-        </Text>
+        <Text style={authStyles.signupLink}>Signup Instead</Text>
       </Link>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  form: {
-    marginTop: 20,
-    marginBottom: 40,
-  },
-
-  signupLink: {
-    textAlign: "center",
-    color: "#ea00ff",
-    textDecorationLine: "underline",
-  },
-
-  input: {
-    marginBottom: 15,
-  },
-
-  error: {
-    color: "red",
-    marginBottom: 10,
-  },
-});
