@@ -1,6 +1,6 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { deleteUser, User } from "firebase/auth";
-import { db } from "./firebase";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { deleteUser, User, updatePassword } from "firebase/auth";
+import { db, auth } from "./firebase";
 
 import { SignupData, TeamData } from "@/store/signupStore";
 import { createTeam, joinTeam } from "./teams";
@@ -68,4 +68,22 @@ export const createUser = async (
     await deleteUser(userAuth);
     throw new Error("Failed");
   }
+};
+
+export const updateName = async (uid: string, firstName: string) => {
+  const userRef = doc(db, "users", uid);
+
+  await updateDoc(userRef, {
+    firstName,
+  });
+};
+
+export const changePassword = async (newPassword: string) => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    throw new Error("No authenticated user");
+  }
+
+  await updatePassword(user, newPassword);
 };

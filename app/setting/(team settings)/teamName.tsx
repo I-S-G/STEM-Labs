@@ -1,13 +1,14 @@
 import DefaultButton from "@/components/defaultButton";
 import Input from "@/components/input";
+import { View, Text } from "react-native";
 import { globalStyles } from "@/styles/globalStyles";
-import { View, Text, StyleSheet } from "react-native";
+import { TeamSettingStyles } from "@/styles/settingsStyles";
 
 export default function TeamName() {
   return (
     <View style={globalStyles.screen}>
       <Text style={globalStyles.titleWithHeader}> Change Team Name </Text>
-      <View style={styles.form}>
+      <View style={TeamSettingStyles.form}>
         <Input label="Team Name" />
         <DefaultButton title="Change" onPress={() => alert("button pressed")} />
       </View>
@@ -15,9 +16,3 @@ export default function TeamName() {
   );
 }
 
-const styles = StyleSheet.create({
-  form: {
-    padding: 10,
-    marginTop: 20,
-  },
-});

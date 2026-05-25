@@ -57,7 +57,7 @@ export default function Signup() {
         />
 
         {errors.name && (
-          <Text style={authStyles.error}>{errors.name.message}</Text>
+          <Text style={globalStyles.error}>{errors.name.message}</Text>
         )}
 
         <Controller
@@ -77,7 +77,7 @@ export default function Signup() {
         />
 
         {errors.email && (
-          <Text style={authStyles.error}>{errors.email.message}</Text>
+          <Text style={globalStyles.error}>{errors.email.message}</Text>
         )}
 
         <Controller
@@ -96,7 +96,7 @@ export default function Signup() {
         />
 
         {errors.password && (
-          <Text style={authStyles.error}>{errors.password.message}</Text>
+          <Text style={globalStyles.error}>{errors.password.message}</Text>
         )}
 
         <Controller
@@ -115,7 +115,7 @@ export default function Signup() {
         />
 
         {errors.retypePassword && (
-          <Text style={authStyles.error}>{errors.retypePassword.message}</Text>
+          <Text style={globalStyles.error}>{errors.retypePassword.message}</Text>
         )}
 
         <DefaultButton
