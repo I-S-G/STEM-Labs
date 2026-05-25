@@ -16,10 +16,23 @@ const createUserDocument = async (
 ) => {
   const userRef = doc(db, "users", uid);
 
+  const { email, firstName, teamName, teamDiscriminator } = data;
+
   await setDoc(userRef, {
     createdAt: new Date(),
-    ...data,
+    email,
+    firstName,
+    teamName,
+    teamDiscriminator,
+    activityCompleted: 0,
+    membership: "Free",
   });
+};
+
+export const getUserData = async (uid: string) => {
+  const userDocRef = doc(db, "users", uid);
+  const userSnapshot = await getDoc(userDocRef);
+  return userSnapshot.data();
 };
 
 export const createUser = async (
@@ -50,14 +63,9 @@ export const createUser = async (
       firstName,
       ...teamInfo,
     });
+
   } catch (err) {
     await deleteUser(userAuth);
     throw new Error("Failed");
   }
-};
-
-export const getUserData = async (uid: string) => {
-  const userDocRef = doc(db, "users", uid);
-  const userSnapshot = await getDoc(userDocRef);
-  return userSnapshot.data();
 };

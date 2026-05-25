@@ -1,5 +1,4 @@
 import { globalStyles } from "@/styles/globalStyles";
-import { router, Link } from "expo-router";
 import { View, ScrollView, Text } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
@@ -12,6 +11,7 @@ import { SignupData, TeamData, useSignupStore } from "@/store/signupStore";
 import { authStyles } from "@/styles/authStyles";
 import { signUpWithEmail } from "@/utils/firebase/auth";
 import { createUser } from "@/utils/firebase/users";
+import { router } from "expo-router";
 
 export default function TeamSignup() {
   const { signupData, setTeamData, clear } = useSignupStore();
@@ -19,7 +19,7 @@ export default function TeamSignup() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<TeamSignupForm>({
     resolver: zodResolver(teamSignupSchema),
     defaultValues: {
@@ -43,13 +43,10 @@ export default function TeamSignup() {
 
     try {
       await createUser(user, finalPayload);
-
-      alert("User Created:" + JSON.stringify(user));
-
       clear();
-      router.push("/");
-    } catch (e) {
-      alert("Failed, Make sure discriminator is valid");
+      router.push("/")
+    } catch (e: any) {
+      alert(e.message || "Failed");
     }
   };
   return (
@@ -99,6 +96,7 @@ export default function TeamSignup() {
           title="Sign Up"
           style={{ marginTop: 20 }}
           onPress={handleSubmit(onSubmit)}
+          disabled= {isSubmitting}
         />
       </View>
     </ScrollView>
