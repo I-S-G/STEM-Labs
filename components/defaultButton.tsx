@@ -24,7 +24,9 @@ export default function DefaultButton({
 }: ButtonProps) {
   return (
     <Pressable
-      onPress={onPress}
+      onPress={() => {
+        if (!disabled) onPress();
+      }}
       disabled={disabled}
       style={({ pressed }) => [
         styles.button,

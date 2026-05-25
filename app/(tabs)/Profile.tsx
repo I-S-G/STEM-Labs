@@ -1,26 +1,39 @@
 import { View, Text, StyleSheet } from "react-native";
 import { globalStyles } from "@/styles/globalStyles";
+import { AppUser, useUserStore } from "@/store/userStore";
+import { useEffect } from "react";
 
-const user = {
-  id: "uid1745",
-  Name: "John",
-  Team: "Shadow Walker",
-  "Team Discriminator": "SW192",
-  "Total Activity Completed": 14,
-  Membership: "Free",
+const formatLabel = (key: string) => {
+  return key
+    .replace(/([A-Z])/g, " $1")
 };
 
+const fieldOrder: (keyof AppUser)[] = [
+  "firstName",
+  "teamName",
+  "teamDiscriminator",
+  "activityCompleted",
+  "membership",
+];
+
 export default function Profile() {
+  const user = useUserStore((s) => s.currentUser);
+   const loadUser = useUserStore((s) => s.loadUser);
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
     <View style={globalStyles.screen}>
-      <Text style={globalStyles.title}> Profile </Text>
-      <Text style={styles.subHeading}> User Details </Text>
+      <Text style={globalStyles.title}>Profile</Text>
+      <Text style={styles.subHeading}>User Details</Text>
+
       <View style={styles.details}>
-        {Object.entries(user)
-          .filter(([key]) => key !== "id")
-          .map(([key, value]) => (
+        {user &&
+          fieldOrder.map((key) => (
             <Text key={key} style={styles.text}>
-              {key}: {value}
+              {formatLabel(key)}: {String(user[key])}
             </Text>
           ))}
       </View>
@@ -43,5 +56,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    textTransform: "capitalize"
   },
 });

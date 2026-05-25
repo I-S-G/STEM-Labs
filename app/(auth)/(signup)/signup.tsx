@@ -17,7 +17,7 @@ export default function Signup() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<SignupForm>({
     resolver: zodResolver(signupSchema),
 
@@ -122,6 +122,7 @@ export default function Signup() {
           title="Next"
           style={{ marginTop: 20 }}
           onPress={handleSubmit(onSubmit)}
+          disabled= {isSubmitting}
         />
       </View>
 

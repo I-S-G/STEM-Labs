@@ -1,5 +1,5 @@
 import { globalStyles } from "@/styles/globalStyles";
-import { router, Link } from "expo-router";
+import { Link } from "expo-router";
 import { View, Text } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
@@ -15,7 +15,7 @@ export default function Login() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
 
@@ -28,7 +28,6 @@ export default function Login() {
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     const { user } = await signInWithEmail(data.email, data.password);
     alert(JSON.stringify(user));
-    router.push("/");
   };
 
   return (
@@ -75,7 +74,7 @@ export default function Login() {
           <Text style={authStyles.error}>{errors.password.message}</Text>
         )}
 
-        <DefaultButton title="Login" onPress={handleSubmit(onSubmit)} />
+        <DefaultButton title="Login" onPress={handleSubmit(onSubmit)} disabled= {isSubmitting} />
       </View>
 
       <Link href="/signup">
