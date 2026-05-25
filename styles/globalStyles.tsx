@@ -20,4 +20,9 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
+    error: {
+    color: "red",
+    marginBottom: 10,
+    marginLeft: 15,
+  },
 });

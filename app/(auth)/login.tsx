@@ -52,7 +52,7 @@ export default function Login() {
         />
 
         {errors.email && (
-          <Text style={authStyles.error}>{errors.email.message}</Text>
+          <Text style={globalStyles.error}>{errors.email.message}</Text>
         )}
 
         <Controller
@@ -71,10 +71,14 @@ export default function Login() {
         />
 
         {errors.password && (
-          <Text style={authStyles.error}>{errors.password.message}</Text>
+          <Text style={globalStyles.error}>{errors.password.message}</Text>
         )}
 
-        <DefaultButton title="Login" onPress={handleSubmit(onSubmit)} disabled= {isSubmitting} />
+        <DefaultButton
+          title="Login"
+          onPress={handleSubmit(onSubmit)}
+          disabled={isSubmitting}
+        />
       </View>
 
       <Link href="/signup">

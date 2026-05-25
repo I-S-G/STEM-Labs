@@ -22,10 +22,4 @@ export const authStyles = StyleSheet.create({
   input: {
     marginBottom: 5,
   },
-
-  error: {
-    color: "red",
-    marginBottom: 10,
-    marginLeft: 15,
-  },
 });

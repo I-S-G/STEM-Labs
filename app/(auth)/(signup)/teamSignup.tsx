@@ -89,7 +89,7 @@ export default function TeamSignup() {
         />
 
         {errors.teamName && (
-          <Text style={authStyles.error}>{errors.teamName.message}</Text>
+          <Text style={globalStyles.error}>{errors.teamName.message}</Text>
         )}
 
         <DefaultButton

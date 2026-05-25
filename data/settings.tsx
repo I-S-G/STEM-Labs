@@ -10,10 +10,6 @@ export const settingsMap = [
         name: "Password",
         route: "/setting/password",
       },
-      {
-        name: "Email",
-        route: "/setting/email",
-      },
     ],
   },
   {

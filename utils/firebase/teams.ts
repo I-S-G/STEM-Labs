@@ -10,11 +10,29 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 
-const generateTeamDiscriminator = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+const generateTeamDiscriminator = () =>
+  Math.floor(100000 + Math.random() * 900000).toString();
+
+export const getTeamByDiscriminator = async (discriminator: string) => {
+  const teamsRef = collection(db, "teams");
+
+  const q = query(teamsRef, where("teamDiscriminator", "==", discriminator));
+
+  const snapshot = await getDocs(q);
+
+  if (snapshot.empty) {
+    throw new Error("Team not found");
+  }
+
+  const docSnap = snapshot.docs[0];
+
+  return {
+    id: docSnap.id,
+    data: docSnap.data(),
+  };
 };
 
-export const createTeam = async (teamName: string, firstName: string) => {
+export const createTeam = async (teamName: string, uid: string) => {
   const createdAt = new Date();
   const teamDiscriminator = generateTeamDiscriminator();
   const teamRef = doc(db, "teams", teamDiscriminator);
@@ -23,7 +41,7 @@ export const createTeam = async (teamName: string, firstName: string) => {
     teamName,
     teamDiscriminator,
     createdAt,
-    members: [firstName],
+    members: [uid],
   });
 
   return {
@@ -32,24 +50,43 @@ export const createTeam = async (teamName: string, firstName: string) => {
   };
 };
 
-export const joinTeam = async (discriminator: string, firstName: string) => {
-  const teamsRef = collection(db, "teams");
-  const q = query(teamsRef, where("teamDiscriminator", "==", discriminator));
-  const querySnapshot = await getDocs(q);
+export const joinTeam = async (discriminator: string, uid: string) => {
+  const team = await getTeamByDiscriminator(discriminator);
 
-  if (querySnapshot.empty) {
-    throw new Error("Team not found");
-  }
-
-  const teamDoc = querySnapshot.docs[0];
-  const teamData = teamDoc.data();
-
-  await updateDoc(doc(db, "teams", teamDoc.id), {
-    members: arrayUnion(firstName),
+  await updateDoc(doc(db, "teams", team.id), {
+    members: arrayUnion(uid),
   });
 
   return {
-    teamName: teamData.teamName,
-    teamDiscriminator: teamData.teamDiscriminator,
+    teamName: team.data.teamName,
+    teamDiscriminator: team.data.teamDiscriminator,
+  };
+};
+
+export const changeTeamName = async (
+  discriminator: string,
+  newTeamName: string,
+) => {
+  const team = await getTeamByDiscriminator(discriminator);
+
+  // 1. update team document
+  await updateDoc(doc(db, "teams", team.id), {
+    teamName: newTeamName,
+  });
+
+  // 2. update all users in team using stored member uids
+  const members: string[] = team.data.members || [];
+
+  const updates = members.map((uid) =>
+    updateDoc(doc(db, "users", uid), {
+      teamName: newTeamName,
+    }),
+  );
+
+  await Promise.all(updates);
+
+  return {
+    teamName: newTeamName,
+    teamDiscriminator: discriminator,
   };
 };

@@ -18,3 +18,4 @@ export const authListener = (callback: NextOrObserver<User>) =>
   onAuthStateChanged(auth, callback);
 
 export const logOut = () => signOut(auth);
+
