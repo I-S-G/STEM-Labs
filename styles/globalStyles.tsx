@@ -20,7 +20,39 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
-    error: {
+  subtitle: {
+    fontSize: 14,
+    color: "#94a3b8",
+    marginBottom: 20,
+  },
+  card: {
+    backgroundColor: "#1e293b",
+    padding: 15,
+    borderRadius: 12,
+    marginBottom: 15,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "white",
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 14,
+    color: "#cbd5e1",
+    lineHeight: 20,
+  },
+  diagramImage: {
+    width: "100%",
+    height: 200,
+    marginTop: 15,
+    borderRadius: 10,
+  },
+  scroll: {
+    padding: 20,
+    paddingBottom: 40,
+  },
+  error: {
     color: "red",
     marginBottom: 10,
     marginLeft: 15,
