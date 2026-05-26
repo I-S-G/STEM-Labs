@@ -3,12 +3,9 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-  collection,
-  query,
-  where,
-  getDocs,
   arrayRemove,
   arrayUnion,
+  increment,
 } from "firebase/firestore";
 import { deleteUser, User, updatePassword } from "firebase/auth";
 import { db, auth } from "./firebase";
@@ -128,5 +125,13 @@ export const changeTeam = async (uid: string, newDiscriminator: string) => {
   await updateDoc(doc(db, "users", uid), {
     teamDiscriminator: newDiscriminator,
     teamName: newTeam.data.teamName,
+  });
+};
+
+export const increaseActivity = async (uid: string) => {
+  const userRef = doc(db, "users", uid);
+
+  await updateDoc(userRef, {
+    activityCompleted: increment(1),
   });
 };

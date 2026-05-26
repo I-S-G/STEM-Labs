@@ -4,7 +4,7 @@ export const Activities: ActivityProps[] = [
   {
     title: "Activity 1",
     url: "/activity1",
-    description: "Description about this activity",
+    description: "Parachute Drop Challenge",
   },
   {
     title: "Activity 2",
