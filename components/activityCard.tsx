@@ -2,7 +2,7 @@ import { Href, Link } from "expo-router";
 import { ActivityProps } from "@/types/types";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function Activity({ activity }: { activity: ActivityProps }) {
+export default function ActivityCard({ activity }: { activity: ActivityProps }) {
   const { title, url, description } = activity;
   return (
     <Link href={url as Href} style={styles.activity}>

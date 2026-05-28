@@ -1,4 +1,4 @@
-import RecordDropFlow from "@/components/recordDropFlow";
+import RecordDropFlow from "@/components/drop recording/recordDropFlow";
 
 export default function InitialDrop() {
   return (

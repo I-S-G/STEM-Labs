@@ -7,7 +7,7 @@ import { useUserStore } from "@/store/userStore";
 
 import { globalStyles } from "@/styles/globalStyles";
 import { router } from "expo-router";
-import DefaultButton from "@/components/defaultButton";
+import DefaultButton from "@/components/buttons/defaultButton";
 import { increaseActivity } from "@/utils/firebase/users";
 
 export default function Calculation() {

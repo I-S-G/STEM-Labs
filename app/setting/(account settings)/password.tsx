@@ -8,7 +8,7 @@ import { passwordSchema, PasswordForm } from "@/schemas/password.schema";
 import { changePassword } from "@/utils/firebase/users";
 
 import Input from "@/components/input";
-import DefaultButton from "@/components/defaultButton";
+import DefaultButton from "@/components/buttons/defaultButton";
 import { AccountSettingStyles } from "@/styles/settingsStyles";
 import { globalStyles } from "@/styles/globalStyles";
 

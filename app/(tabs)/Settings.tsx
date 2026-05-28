@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import { globalStyles } from "@/styles/globalStyles";
-import SettingSection from "@/components/settingSection";
-import DefaultButton from "@/components/defaultButton";
+import SettingSection from "@/components/settings/settingSection";
+import DefaultButton from "@/components/buttons/defaultButton";
 import { router } from "expo-router";
 import { logOut } from "@/utils/firebase/auth";
 
