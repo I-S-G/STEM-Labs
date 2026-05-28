@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useVideoPlayer, VideoView } from "expo-video";
-import DefaultButton from "./defaultButton";
+import DefaultButton from "../buttons/defaultButton";
 
 type Props = {
   uri: string;

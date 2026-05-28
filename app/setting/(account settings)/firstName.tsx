@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Input from "@/components/input";
-import DefaultButton from "@/components/defaultButton";
+import DefaultButton from "@/components/buttons/defaultButton";
 
 import { profileSchema, ProfileForm } from "@/schemas/profile.schema";
 import { useUserStore } from "@/store/userStore";

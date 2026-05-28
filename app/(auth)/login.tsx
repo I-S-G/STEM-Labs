@@ -6,7 +6,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Input from "@/components/input";
-import DefaultButton from "@/components/defaultButton";
+import DefaultButton from "@/components/buttons/defaultButton";
 import { loginSchema, LoginForm } from "@/schemas/login.schema";
 import { authStyles } from "@/styles/authStyles";
 import { signInWithEmail } from "@/utils/firebase/auth";

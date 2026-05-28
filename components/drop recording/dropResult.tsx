@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useDurationStore } from "@/store/durationStore";
-import DefaultButton from "./defaultButton";
+import DefaultButton from "../buttons/defaultButton";
 
 type Props = {
   marks: {
@@ -16,7 +16,7 @@ export default function DropResult({ marks, onReset }: Props) {
 
   const duration = Math.max(0, marks.end - marks.start);
 
-  // 🧠 store duration in temp on render
+  //store duration in temp on render
   useEffect(() => {
     const rounded = Number(duration.toFixed(2));
     setTempDuration(rounded);

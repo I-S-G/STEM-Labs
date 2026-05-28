@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Stack } from "expo-router";
-import BackButton from "@/components/backButton";
+import BackButton from "@/components/buttons/backButton";
 import { Colors } from "@/constants/colors";
 
 export default function SettingLayout() {

@@ -5,7 +5,7 @@ import {
 } from "expo-camera";
 import { useRef, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import DefaultButton from "./defaultButton";
+import DefaultButton from "../buttons/defaultButton";
 
 type Props = {
   onRecorded: (uri: string) => void;

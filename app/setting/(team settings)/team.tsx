@@ -1,4 +1,4 @@
-import DefaultButton from "@/components/defaultButton";
+import DefaultButton from "@/components/buttons/defaultButton";
 import Input from "@/components/input";
 import { globalStyles } from "@/styles/globalStyles";
 import { View, Text } from "react-native";

@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 type TSetting = {
   name: string;
-  route: string; //change to href when routes created
+  route: string; 
 };
 
 type SettingsProp = {

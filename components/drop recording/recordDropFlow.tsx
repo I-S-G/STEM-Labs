@@ -1,7 +1,7 @@
 import { useState } from "react";
-import RecordVideo from "@/components/recordVideo";
-import MarkTimestamp from "@/components/markTimestamp";
-import DropResult from "@/components/dropResult";
+import RecordVideo from "@/components/drop recording/recordVideo";
+import MarkTimestamp from "@/components/drop recording/markTimestamp";
+import DropResult from "@/components/drop recording/dropResult";
 import { Href, router } from "expo-router";
 
 type Step = "record" | "mark" | "result";
