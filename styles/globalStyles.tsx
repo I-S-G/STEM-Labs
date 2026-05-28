@@ -57,4 +57,10 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 15,
   },
+  subheading: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 18,
+    marginBottom: 5,
+  },
 });
