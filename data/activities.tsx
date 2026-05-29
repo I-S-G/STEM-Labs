@@ -6,8 +6,6 @@ type ActivitiesType = {
   activity3: ActivityProps;
   activity4: ActivityProps;
   activity5: ActivityProps;
-  activity6: ActivityProps;
-  activity7: ActivityProps;
 };
 
 export const Activities: ActivitiesType = {
@@ -60,14 +58,26 @@ export const Activities: ActivitiesType = {
 
   activity3: {
     title: "Activity 3",
+
     url: "/activity3",
-    description: "",
-    overview: "",
-    equipment: "",
-    instructions: "",
-    diagramDescription: "",
-    image: require("@/assets/images/parachutedrop.png"),
-    startRoute: "",
+
+    description: "Earthquake-Resistant Structure",
+
+    overview:
+      "Students design structures that withstand vibration, simulating earthquakes. Teams experiment with anti-vibration designs to reduce movement and improve structural stability.",
+
+    equipment:
+      "• Cardboard\n• Paper\n• Scissors\n• Sticky tape\n• Plastic/paper cups\n• Mobile phone with vibration sensor",
+
+    instructions:
+      "1. Build an anti-vibration layer by folding paper/cardboard.\n\n2. Place a flat cardboard platform on top.\n\n3. Place the phone in the centre and activate vibration mode on the STEMM App.\n\n4. Modify the structure to reduce movement (e.g. more pillars, more folds, etc).",
+
+    diagramDescription:
+      "• Folded anti-vibration base\n• Flat platform above support structure\n• Phone placed at centre\n• Structural supports and pillars labelled",
+
+    image: require("@/assets/images/earthquake.png"),
+
+    startRoute: "/activity3/vibration",
   },
 
   activity4: {
@@ -94,27 +104,4 @@ export const Activities: ActivitiesType = {
     startRoute: "",
   },
 
-  activity6: {
-    title: "Activity 6",
-    url: "/activity6",
-    description: "",
-    overview: "",
-    equipment: "",
-    instructions: "",
-    diagramDescription: "",
-    image: require("@/assets/images/parachutedrop.png"),
-    startRoute: "",
-  },
-
-  activity7: {
-    title: "Activity 7",
-    url: "/activity7",
-    description: "",
-    overview: "",
-    equipment: "",
-    instructions: "",
-    diagramDescription: "",
-    image: require("@/assets/images/parachutedrop.png"),
-    startRoute: "",
-  },
 };
