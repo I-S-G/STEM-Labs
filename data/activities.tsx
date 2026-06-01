@@ -5,7 +5,6 @@ type ActivitiesType = {
   activity2: ActivityProps;
   activity3: ActivityProps;
   activity4: ActivityProps;
-  activity5: ActivityProps;
 };
 
 export const Activities: ActivitiesType = {
@@ -80,28 +79,30 @@ export const Activities: ActivitiesType = {
     startRoute: "/activity3/vibration",
   },
 
-  activity4: {
-    title: "Activity 4",
-    url: "/activity4",
-    description: "",
-    overview: "",
-    equipment: "",
-    instructions: "",
-    diagramDescription: "",
-    image: require("@/assets/images/parachutedrop.png"),
-    startRoute: "",
-  },
+activity4: {
+  title: "Activity 4",
 
-  activity5: {
-    title: "Activity 5",
-    url: "/activity5",
-    description: "",
-    overview: "",
-    equipment: "",
-    instructions: "",
-    diagramDescription: "",
-    image: require("@/assets/images/parachutedrop.png"),
-    startRoute: "",
-  },
+  url: "/activity4",
+
+  description:
+    "Reaction Board Challenge",
+
+  overview:
+    "Students measure reaction time, coordination, and improvement through repeated digital and physical challenges. Results are compared across team members to explore how reaction speed and motor control vary.",
+
+  equipment:
+    "• Mobile phone with STEMM Lab app\n• Clear working space",
+
+  instructions:
+    "Phase 1 – Tap Reaction\n\n1. Tap the screen as soon as the hidden button appears.\n\n2. Record reaction time.\n\nPhase 2 – Swap Hands\n\n3. Repeat using the non-dominant hand.\n\n4. Compare results.\n\nPhase 3 – Tracing Challenge\n\n5. Trace a moving shape on the screen.\n\n6. Review accuracy and delay.\n\nRotate through each team member.",
+
+  diagramDescription:
+    "• Phone screen displaying a reaction button\n• Tracing path illustration\n• Reaction time and accuracy results displayed",
+
+  image: require("@/assets/images/reaction.png"),
+
+  startRoute: "/activity4/reaction",
+},
+
 
 };
