@@ -52,7 +52,7 @@ export const Activities: ActivitiesType = {
 
     image: require("@/assets/images/soundpollution.png"),
 
-    startRoute: "/activity2/test",
+    startRoute: "/activity2/testAudio",
   },
 
   activity3: {
