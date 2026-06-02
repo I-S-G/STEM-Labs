@@ -60,7 +60,7 @@ export const Activities: ActivitiesType = {
 
     url: "/activity3",
 
-    description: "Earthquake-Resistant Structure",
+    description: "Earthquake Resistant Structure",
 
     overview:
       "Students design structures that withstand vibration, simulating earthquakes. Teams experiment with anti-vibration designs to reduce movement and improve structural stability.",

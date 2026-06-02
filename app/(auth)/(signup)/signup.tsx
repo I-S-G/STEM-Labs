@@ -16,7 +16,7 @@ import DefaultButton from "@/components/buttons/defaultButton";
 import { signupSchema, SignupForm } from "@/schemas/signup.schema";
 import { useSignupStore } from "@/store/signupStore";
 import { authStyles } from "@/styles/authStyles";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Signup() {
   const { setSignupData } = useSignupStore();
@@ -46,7 +46,7 @@ export default function Signup() {
     <SafeAreaView style={globalStyles.screen}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={globalStyles.screen}
+        style={{flex: 1}}
       >
         <ScrollView>
           <Text style={globalStyles.title}>STEMM LABS</Text>

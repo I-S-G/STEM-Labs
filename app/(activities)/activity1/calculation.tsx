@@ -4,6 +4,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Input from "@/components/input";
@@ -72,7 +73,7 @@ export default function Calculation() {
 
     if (allCorrect) {
       router.replace("/"); // or router.push("/")
-      alert("Congratulations! Activity Completed");
+      Alert.alert("Completed", "Congratulations! Activity Completed");
       if (currentUser) increaseActivity(currentUser.uid);
       return;
     }

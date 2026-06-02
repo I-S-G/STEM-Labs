@@ -6,6 +6,7 @@ import {
 import { useRef, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import DefaultButton from "../buttons/defaultButton";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {
   onRecorded: (uri: string) => void;
@@ -60,18 +61,20 @@ export default function RecordVideo({ onRecorded, message }: Props) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <CameraView ref={cameraRef} style={{ flex: 1 }} mode="video" />
-      <Text style={styles.message}> {message} </Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <CameraView ref={cameraRef} style={{ flex: 1 }} mode="video" />
+        <Text style={styles.message}> {message} </Text>
 
-      <View style={styles.controls}>
-        {!recording ? (
-          <DefaultButton onPress={startRecording} title="Record" />
-        ) : (
-          <DefaultButton onPress={stopRecording} title="Stop" />
-        )}
+        <View style={styles.controls}>
+          {!recording ? (
+            <DefaultButton onPress={startRecording} title="Record" />
+          ) : (
+            <DefaultButton onPress={stopRecording} title="Stop" />
+          )}
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

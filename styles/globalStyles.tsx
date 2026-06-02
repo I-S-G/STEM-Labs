@@ -7,7 +7,7 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 40,
+    fontSize: 38,
     textAlign: "center",
     color: "white",
     marginBottom: 20,

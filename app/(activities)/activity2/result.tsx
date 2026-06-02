@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { useSoundStore } from "@/store/soundStore";
 import { globalStyles } from "@/styles/globalStyles";
 import DefaultButton from "@/components/buttons/defaultButton";
@@ -19,7 +19,7 @@ export default function ResultsScreen() {
   const onSubmit = () => {
     reset();
     router.replace("/(tabs)");
-    alert("Congratulations! Activity Completed");
+    Alert.alert("Completed", "Congratulations! Activity Completed");
     if (currentUser) increaseActivity(currentUser.uid);
   };
 

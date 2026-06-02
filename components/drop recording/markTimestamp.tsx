@@ -17,13 +17,8 @@ export default function MarkTimestamp({ uri, onDone }: Props) {
   const [end, setEnd] = useState<number | null>(null);
 
   useEffect(() => {
-    if (uri) player.replace(uri);
+    if (uri) player.replaceAsync(uri);
   }, [uri]);
-
-  const toggle = () => {
-    if (player.playing) player.pause();
-    else player.play();
-  };
 
   const markStart = () => {
     player.pause();

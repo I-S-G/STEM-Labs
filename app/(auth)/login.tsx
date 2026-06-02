@@ -35,6 +35,7 @@ export default function Login() {
     <SafeAreaView style={globalStyles.screen}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style = {{flex: 1}}
       >
         <Text style={globalStyles.title}>STEMM LABS</Text>
 

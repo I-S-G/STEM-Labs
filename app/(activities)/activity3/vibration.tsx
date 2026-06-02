@@ -3,8 +3,8 @@ import { useUserStore } from "@/store/userStore";
 import { globalStyles } from "@/styles/globalStyles";
 import { increaseActivity } from "@/utils/firebase/users";
 import { router } from "expo-router";
-import React, { useState, useEffect } from "react";
-import { View, Vibration, StyleSheet } from "react-native";
+import { useState, useEffect } from "react";
+import { View, Vibration, StyleSheet, Alert } from "react-native";
 
 export default function VibrationToggleButton() {
   const { currentUser } = useUserStore();
@@ -24,21 +24,18 @@ export default function VibrationToggleButton() {
 
   const onSubmit = () => {
     router.replace("/(tabs)");
-    alert("Congratulations! Activity Completed");
+    Alert.alert("Completed", "Congratulations! Activity Completed");
     if (currentUser) increaseActivity(currentUser.uid);
   };
 
   return (
     <View style={[globalStyles.screen, { alignItems: "center" }]}>
-      {/* Center button */}
       <View style={styles.centerBtn}>
         <DefaultButton
           onPress={() => setIsVibrating(!isVibrating)}
           title={isVibrating ? "Stop Vibration" : "Start Vibration"}
         />
       </View>
-
-      {/* Bottom button */}
       <View style={styles.bottomBtn}>
         <DefaultButton title="Finish" onPress={onSubmit} />
       </View>

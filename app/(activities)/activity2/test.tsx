@@ -78,7 +78,7 @@ export default function TestAudio() {
           onPress: () => setFinished(true),
         },
         {
-          text: "Record another",
+          text: "Record Another",
           onPress: () => reset(),
         },
       ]
