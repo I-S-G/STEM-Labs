@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { View, StatusBar, StyleSheet } from "react-native";
+import { View, StatusBar, StyleSheet, Alert } from "react-native";
 import { IdleScreen } from "@/components/tracing/idleScreen";
 import { GameScreen } from "@/components/tracing/gameScreen";
 import { ResultScreen } from "@/components/tracing/resultScreen";
@@ -27,7 +27,7 @@ export default function App() {
   const handlePlayAgain = useCallback(() => setPhase("playing"), []);
   const handleMenu = () => {
     router.replace("/(tabs)");
-    alert("Congratulations! Activity Completed");
+    Alert.alert("Completed", "Congratulations! Activity Completed");
     if (currentUser) increaseActivity(currentUser.uid);
   };
 

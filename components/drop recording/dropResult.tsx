@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useDurationStore } from "@/store/durationStore";
 import DefaultButton from "../buttons/defaultButton";
+import { globalStyles } from "@/styles/globalStyles";
 
 type Props = {
   marks: {
@@ -26,8 +27,8 @@ export default function DropResult({ marks, onReset }: Props) {
     <View style={styles.container}>
       <Text style={styles.title}>Result</Text>
 
-      <Text>Start: {marks.start.toFixed(2)}s</Text>
-      <Text>End: {marks.end.toFixed(2)}s</Text>
+      <Text style= {globalStyles.text}>Start: {marks.start.toFixed(2)}s</Text>
+      <Text style= {globalStyles.text}>End: {marks.end.toFixed(2)}s</Text>
 
       <Text style={styles.duration}>Duration: {duration.toFixed(2)}s</Text>
 
@@ -49,10 +50,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 20,
+    color: "white"
   },
   duration: {
     fontSize: 20,
     marginTop: 20,
     fontWeight: "bold",
+    color: "white"
   },
 });

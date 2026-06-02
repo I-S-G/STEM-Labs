@@ -7,11 +7,11 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 40,
+    fontSize: 38,
     textAlign: "center",
     color: "white",
     marginBottom: 20,
-    marginTop: 70,
+    marginTop: 40,
   },
   titleWithHeader: {
     fontSize: 40,

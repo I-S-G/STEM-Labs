@@ -2,10 +2,10 @@ import { View, Text, StyleSheet } from "react-native";
 import { globalStyles } from "@/styles/globalStyles";
 import { AppUser, useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const formatLabel = (key: string) => {
-  return key
-    .replace(/([A-Z])/g, " $1")
+  return key.replace(/([A-Z])/g, " $1");
 };
 
 const fieldOrder: (keyof AppUser)[] = [
@@ -18,26 +18,28 @@ const fieldOrder: (keyof AppUser)[] = [
 
 export default function Profile() {
   const user = useUserStore((s) => s.currentUser);
-   const loadUser = useUserStore((s) => s.loadUser);
+  const loadUser = useUserStore((s) => s.loadUser);
 
   useEffect(() => {
     loadUser();
   }, []);
 
   return (
-    <View style={globalStyles.screen}>
-      <Text style={globalStyles.title}>Profile</Text>
-      <Text style={styles.subHeading}>User Details</Text>
+    <SafeAreaView style={globalStyles.screen}>
+      <View style={globalStyles.screen}>
+        <Text style={globalStyles.title}>Profile</Text>
+        <Text style={styles.subHeading}>User Details</Text>
 
-      <View style={styles.details}>
-        {user &&
-          fieldOrder.map((key) => (
-            <Text key={key} style={styles.text}>
-              {formatLabel(key)}: {String(user[key])}
-            </Text>
-          ))}
+        <View style={styles.details}>
+          {user &&
+            fieldOrder.map((key) => (
+              <Text key={key} style={styles.text}>
+                {formatLabel(key)}: {String(user[key])}
+              </Text>
+            ))}
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 25,
     marginTop: 50,
-    marginLeft: 5,
+    marginLeft: 15,
     marginBottom: 10,
   },
   details: {
@@ -56,6 +58,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    textTransform: "capitalize"
+    textTransform: "capitalize",
   },
 });
