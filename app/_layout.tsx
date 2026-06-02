@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { authListener } from "@/utils/firebase/auth";
 import { getUserData } from "@/utils/firebase/users";
 import { useUserStore } from "@/store/userStore";
+import { Colors } from "@/constants/colors";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function RootLayout() {
   const setCurrentUser = useUserStore((s) => s.setCurrentUser);
@@ -34,10 +36,17 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="(auth)" />
-      </Stack>
+      <SafeAreaProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: Colors.background },
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="(auth)" />
+        </Stack>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

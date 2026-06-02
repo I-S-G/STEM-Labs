@@ -1,4 +1,10 @@
-import { Text, ScrollView, StyleSheet } from "react-native";
+import {
+  Text,
+  ScrollView,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useEffect, useState } from "react";
 import Input from "@/components/input";
 
@@ -9,6 +15,7 @@ import { globalStyles } from "@/styles/globalStyles";
 import { router } from "expo-router";
 import DefaultButton from "@/components/buttons/defaultButton";
 import { increaseActivity } from "@/utils/firebase/users";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Calculation() {
   const { setDurationWithParachute, tempDuration, durationWithoutParachute } =
@@ -99,63 +106,70 @@ export default function Calculation() {
   };
 
   return (
-    <ScrollView style={globalStyles.screen}>
-      <Text style={globalStyles.title}>Calculation</Text>
+    <SafeAreaView style={globalStyles.screen}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ScrollView>
+          <Text style={globalStyles.title}>Calculation</Text>
 
-      <Text style={styles.subtitle}> Known Values </Text>
+          <Text style={styles.subtitle}> Known Values </Text>
 
-      <Text style={styles.value}>
-        Without Parachute Time: {durationWithoutParachute}s
-      </Text>
-      <Text style={styles.value}>With Parachute Time: {tempDuration}s</Text>
+          <Text style={styles.value}>
+            Without Parachute Time: {durationWithoutParachute}s
+          </Text>
+          <Text style={styles.value}>With Parachute Time: {tempDuration}s</Text>
 
-      <Input
-        label="Drop Distance (m)"
-        value={distance}
-        onChangeText={setDistance}
-        keyboardType="numeric"
-      />
+          <Input
+            label="Drop Distance (m)"
+            value={distance}
+            onChangeText={setDistance}
+            keyboardType="numeric"
+          />
 
-      <Input
-        label="Mass of Toy (kg)"
-        value={mass}
-        onChangeText={setMass}
-        keyboardType="numeric"
-      />
+          <Input
+            label="Mass of Toy (kg)"
+            value={mass}
+            onChangeText={setMass}
+            keyboardType="numeric"
+          />
 
-      {/* WITHOUT PARACHUTE */}
-      <Text style={styles.subtitle}>Without Parachute</Text>
+          {/* WITHOUT PARACHUTE */}
+          <Text style={styles.subtitle}>Without Parachute</Text>
 
-      <Input label="Final Velocity" value={wV} onChangeText={setWV} />
-      {feedback && <Text>{feedback.wV}</Text>}
+          <Input label="Final Velocity" value={wV} onChangeText={setWV} />
+          {feedback && <Text>{feedback.wV}</Text>}
 
-      <Input label="Acceleration" value={wA} onChangeText={setWA} />
-      {feedback && <Text>{feedback.wA}</Text>}
+          <Input label="Acceleration" value={wA} onChangeText={setWA} />
+          {feedback && <Text>{feedback.wA}</Text>}
 
-      <Input label="Net Force" value={wF} onChangeText={setWF} />
-      {feedback && <Text>{feedback.wF}</Text>}
+          <Input label="Net Force" value={wF} onChangeText={setWF} />
+          {feedback && <Text>{feedback.wF}</Text>}
 
-      {/* WITH PARACHUTE */}
-      <Text style={styles.subtitle}>With Parachute</Text>
+          {/* WITH PARACHUTE */}
+          <Text style={styles.subtitle}>With Parachute</Text>
 
-      <Input label="Final Velocity" value={pV} onChangeText={setPV} />
-      {feedback && <Text>{feedback.pV}</Text>}
+          <Input label="Final Velocity" value={pV} onChangeText={setPV} />
+          {feedback && <Text>{feedback.pV}</Text>}
 
-      <Input label="Acceleration" value={pA} onChangeText={setPA} />
-      {feedback && <Text>{feedback.pA}</Text>}
+          <Input label="Acceleration" value={pA} onChangeText={setPA} />
+          {feedback && <Text>{feedback.pA}</Text>}
 
-      <Input label="Net Force" value={pF} onChangeText={setPF} />
-      {feedback && <Text>{feedback.pF}</Text>}
+          <Input label="Net Force" value={pF} onChangeText={setPF} />
+          {feedback && <Text>{feedback.pF}</Text>}
 
-      {/* CHECK BUTTON */}
-      <DefaultButton
-        title="Check"
-        onPress={checkAnswers}
-        style={{
-          marginBottom: 100,
-        }}
-      />
-    </ScrollView>
+          {/* CHECK BUTTON */}
+          <DefaultButton
+            title="Check"
+            onPress={checkAnswers}
+            style={{
+              marginBottom: 100,
+            }}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
