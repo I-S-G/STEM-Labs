@@ -1,0 +1,69 @@
+appId: com.boostedanimal.STEMLabs
+---
+- launchApp:
+    clearState: true
+- assertVisible: "STEMM LABS"
+- assertVisible: "Personal Details"
+- assertVisible: "Name"
+- assertVisible: "Enter Name"
+- assertVisible: "Email"
+- assertVisible: "Enter Email"
+- assertVisible: "Password"
+- assertVisible: "Enter Password"
+- assertVisible: "Retype Password"
+- assertVisible: "Enter Retype Password"
+- assertVisible: "Next"
+- assertVisible: "Login Instead"
+- tapOn: "Enter Name"
+- inputRandomPersonName
+- tapOn: "Enter Email"
+- inputRandomEmail
+- tapOn: "Enter Password"
+- inputText: "testtest"
+- tapOn: "Enter Retype Password"
+- inputText: "testtest"
+- tapOn: "Next"
+- tapOn: "Next"
+- assertVisible: "STEMM LABS"
+- assertVisible: "Create New Team"
+- assertVisible: "Team Name"
+- assertVisible: "Enter Team Name"
+- assertVisible: "OR"
+- assertVisible: "Join An Existing Team"
+- assertVisible: "Team Discriminator"
+- assertVisible: "Enter Team Discriminator"
+- assertVisible: "Sign Up"
+- tapOn: "Enter Team Name"
+- inputRandomText:
+    length: 8
+- tapOn: "Sign Up"
+- tapOn: "Sign Up"
+- assertVisible: "Choose Activity"
+- assertVisible: "￼"
+- assertVisible:
+    text: "￼"
+    index: 2
+- assertVisible:
+    text: "￼"
+    index: 3
+- assertVisible: "Home"
+- assertVisible: "Profile"
+- assertVisible: "Settings"
+- assertVisible:
+    text: "￼"
+    index: 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
