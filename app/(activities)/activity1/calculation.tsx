@@ -12,16 +12,20 @@ import Input from "@/components/input";
 import { useDurationStore } from "@/store/durationStore";
 import { useUserStore } from "@/store/userStore";
 
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { router } from "expo-router";
 import DefaultButton from "@/components/buttons/defaultButton";
 import { increaseActivity } from "@/utils/firebase/users";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Calculation() {
   const { setDurationWithParachute, tempDuration, durationWithoutParachute } =
     useDurationStore();
   const { currentUser } = useUserStore();
+
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
 
   useEffect(() => {
     if (tempDuration) {

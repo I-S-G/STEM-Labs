@@ -1,6 +1,7 @@
 import DefaultButton from "@/components/buttons/defaultButton";
+import { useTheme } from "@/hooks/useTheme";
 import { useUserStore } from "@/store/userStore";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { increaseActivity } from "@/utils/firebase/users";
 import { router } from "expo-router";
 import { useState, useEffect } from "react";
@@ -8,6 +9,10 @@ import { View, Vibration, StyleSheet, Alert } from "react-native";
 
 export default function VibrationToggleButton() {
   const { currentUser } = useUserStore();
+
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+
   const [isVibrating, setIsVibrating] = useState(false);
 
   useEffect(() => {

@@ -1,3 +1,4 @@
+import { useTheme } from "@/hooks/useTheme";
 import React from "react";
 import {
   View,
@@ -14,13 +15,15 @@ type InputProps = TextInputProps & {
 };
 
 export default function Input({ label, style, ...props }: InputProps) {
+  const { theme } = useTheme();
+
   return (
     <View style={[styles.container, style]}>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, {color: theme.text}]}>{label}</Text>
 
       <TextInput
         {...props}
-        style={styles.input}
+        style={[styles.input, {borderColor: theme.text}]}
         placeholderTextColor="#999"
         placeholder={`Enter ${label}`}
       />
@@ -35,7 +38,6 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 6,
-    color: "#ffffff",
     fontWeight: "500",
   },
   input: {

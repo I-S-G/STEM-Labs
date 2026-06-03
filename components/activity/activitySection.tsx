@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
+import { useTheme } from "@/hooks/useTheme";
 
 type Props = {
   title: string;
@@ -7,6 +8,9 @@ type Props = {
 };
 
 export default function ActivitySection({ title, content }: Props) {
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+  
   return (
     <View style={globalStyles.card}>
       <Text style={globalStyles.cardTitle}>{title}</Text>

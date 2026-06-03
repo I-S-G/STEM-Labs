@@ -1,6 +1,6 @@
 import DefaultButton from "@/components/buttons/defaultButton";
 import Input from "@/components/input";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { View, Text } from "react-native";
 import { TeamSettingStyles } from "@/styles/settingsStyles";
 
@@ -11,10 +11,14 @@ import { teamChangeSchema, TeamChangeForm } from "@/schemas/teamChange.schema";
 import { useUserStore } from "@/store/userStore";
 import { changeTeam } from "@/utils/firebase/users";
 import { router } from "expo-router";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Team() {
   const user = useUserStore((s) => s.currentUser);
   const loadUser = useUserStore((s) => s.loadUser);
+  
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
 
   const {
     control,
@@ -36,7 +40,7 @@ export default function Team() {
       await loadUser();
 
       alert("Team changed successfully");
-      router.push("/(tabs)/settings")
+      router.push("/(tabs)/settings");
     } catch (err: any) {
       alert(err.message || "Failed to change team");
     }
@@ -60,7 +64,9 @@ export default function Team() {
         />
 
         {errors.teamDiscriminator && (
-          <Text style={globalStyles.error}>{errors.teamDiscriminator.message}</Text>
+          <Text style={globalStyles.error}>
+            {errors.teamDiscriminator.message}
+          </Text>
         )}
 
         <DefaultButton

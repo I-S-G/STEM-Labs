@@ -1,6 +1,12 @@
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { Link } from "expo-router";
-import { View, Text, KeyboardAvoidingView, Platform, Alert } from "react-native";
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,8 +17,12 @@ import { loginSchema, LoginForm } from "@/schemas/login.schema";
 import { authStyles } from "@/styles/authStyles";
 import { signInWithEmail } from "@/utils/firebase/auth";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Login() {
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+
   const {
     control,
     handleSubmit,
@@ -30,8 +40,8 @@ export default function Login() {
     try {
       await signInWithEmail(data.email, data.password);
       Alert.alert("Success", "Logged In");
-    } catch(e: any) {
-      Alert.alert("Failed", e.message || "Failed to Login")
+    } catch (e: any) {
+      Alert.alert("Failed", e.message || "Failed to Login");
     }
   };
 
@@ -39,7 +49,7 @@ export default function Login() {
     <SafeAreaView style={globalStyles.screen}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style = {{flex: 1}}
+        style={{ flex: 1 }}
       >
         <Text style={globalStyles.title}>STEMM LABS</Text>
 

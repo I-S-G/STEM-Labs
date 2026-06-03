@@ -1,4 +1,4 @@
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { router, Link } from "expo-router";
 import {
   View,
@@ -17,9 +17,13 @@ import { signupSchema, SignupForm } from "@/schemas/signup.schema";
 import { useSignupStore } from "@/store/signupStore";
 import { authStyles } from "@/styles/authStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Signup() {
   const { setSignupData } = useSignupStore();
+  
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
 
   const {
     control,
@@ -45,13 +49,13 @@ export default function Signup() {
     <SafeAreaView style={globalStyles.screen}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{flex: 1}}
+        style={{ flex: 1 }}
       >
         <ScrollView>
           <Text style={globalStyles.title}>STEMM LABS</Text>
 
           <View style={authStyles.form}>
-            <Text style={authStyles.subheading}>Personal Details</Text>
+            <Text style={[authStyles.subheading, {color: theme.text}]}>Personal Details</Text>
 
             <Controller
               control={control}

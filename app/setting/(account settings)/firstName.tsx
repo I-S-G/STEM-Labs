@@ -10,11 +10,14 @@ import DefaultButton from "@/components/buttons/defaultButton";
 import { profileSchema, ProfileForm } from "@/schemas/profile.schema";
 import { useUserStore } from "@/store/userStore";
 import { updateName } from "@/utils/firebase/users";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function EditProfile() {
   const user = useUserStore((s) => s.currentUser);
   const loadUser = useUserStore((s) => s.loadUser);
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
 
   const {
     control,

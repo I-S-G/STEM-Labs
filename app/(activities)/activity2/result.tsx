@@ -1,15 +1,19 @@
 import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { useSoundStore } from "@/store/soundStore";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import DefaultButton from "@/components/buttons/defaultButton";
 import { router } from "expo-router";
 import { increaseActivity } from "@/utils/firebase/users";
 import { useUserStore } from "@/store/userStore";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function ResultsScreen() {
   const { currentUser } = useUserStore();
   const entries = useSoundStore((s) => s.entries);
   const reset = useSoundStore((s) => s.reset);
+
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
 
   const sorted = [...entries].sort((a, b) => b.dbLevel - a.dbLevel);
 

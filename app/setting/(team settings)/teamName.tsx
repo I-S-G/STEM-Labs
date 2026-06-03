@@ -1,7 +1,7 @@
 import DefaultButton from "@/components/buttons/defaultButton";
 import Input from "@/components/input";
 import { View, Text } from "react-native";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { TeamSettingStyles } from "@/styles/settingsStyles";
 
 import { useForm, Controller } from "react-hook-form";
@@ -11,11 +11,15 @@ import { useUserStore } from "@/store/userStore";
 import { changeTeamName } from "@/utils/firebase/teams";
 import { teamNameSchema, TeamNameForm } from "@/schemas/teamName.schema";
 import { router } from "expo-router";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function TeamName() {
   const user = useUserStore((s) => s.currentUser);
   const loadUser = useUserStore((s) => s.loadUser);
 
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+  
   const {
     control,
     handleSubmit,
@@ -36,7 +40,7 @@ export default function TeamName() {
       await loadUser();
 
       alert("Team name updated");
-      router.push("/(tabs)/settings")
+      router.push("/(tabs)/settings");
     } catch (err: any) {
       alert(err.message || "Failed to update team name");
     }
@@ -51,11 +55,7 @@ export default function TeamName() {
           control={control}
           name="teamName"
           render={({ field: { onChange, value } }) => (
-            <Input
-              label="Team Name"
-              value={value}
-              onChangeText={onChange}
-            />
+            <Input label="Team Name" value={value} onChangeText={onChange} />
           )}
         />
 

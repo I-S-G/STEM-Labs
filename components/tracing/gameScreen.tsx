@@ -15,13 +15,15 @@ import {
   GAME_DURATION,
   TICK_MS,
 } from "@/constants/traceGame";
-import { Colors } from "@/constants/colors";
+import { useTheme } from "@/hooks/useTheme";
 
 type Props = {
   onEnd: (score: number, trackedSec: number) => void;
 };
 
 export function GameScreen({ onEnd }: Props) {
+  const { theme } = useTheme();
+
   const canvasRef = useRef<GameCanvasHandle>(null);
 
   // Game state refs (no re-render during loop)
@@ -108,7 +110,7 @@ export function GameScreen({ onEnd }: Props) {
   ).current;
 
   return (
-    <View style={s.root} {...panResponder.panHandlers}>
+    <View style={[s.root, {backgroundColor: theme.background}]} {...panResponder.panHandlers}>
       <GameCanvas ref={canvasRef} />
 
       {/* HUD — minimal, top of screen */}
@@ -122,7 +124,6 @@ export function GameScreen({ onEnd }: Props) {
 const s = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: Colors.background,
   },
   hud: {
     position: "absolute",

@@ -1,11 +1,15 @@
 import { Href, Link } from "expo-router";
 import { ActivityProps } from "@/types/types";
 import { View, Text, StyleSheet } from "react-native";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function ActivityCard({ activity }: { activity: ActivityProps }) {
+  const {theme} = useTheme();
+
   const { title, url, description } = activity;
+
   return (
-    <Link href={url as Href} style={styles.activity}>
+    <Link href={url as Href} style={[styles.activity, {backgroundColor: theme.homeCardColor}]}>
       <View style={{ width: "100%" }}>
         <Text style={styles.activityTitle}> {title} </Text>
         <Text> {description} </Text>
@@ -16,7 +20,6 @@ export default function ActivityCard({ activity }: { activity: ActivityProps }) 
 
 const styles = StyleSheet.create({
   activity: {
-    backgroundColor: "#99b9e2",
     marginHorizontal: 50,
     marginVertical: 10,
     paddingVertical: 15,
