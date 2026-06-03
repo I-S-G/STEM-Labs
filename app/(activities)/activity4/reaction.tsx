@@ -1,5 +1,6 @@
 import DefaultButton from "@/components/buttons/defaultButton";
-import { globalStyles } from "@/styles/globalStyles";
+import { useTheme } from "@/hooks/useTheme";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import { View, Text, Pressable } from "react-native";
@@ -7,6 +8,9 @@ import { View, Text, Pressable } from "react-native";
 type TestState = "idle" | "waiting" | "ready" | "finished" | "tooEarly";
 
 export default function ReactionTest() {
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+
   const [state, setState] = useState<TestState>("idle");
   const [reactionTime, setReactionTime] = useState<number | null>(null);
 
@@ -14,8 +18,8 @@ export default function ReactionTest() {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const onSubmit = () => {
-    router.push("/(activities)/activity4/trace")
-  }
+    router.push("/(activities)/activity4/trace");
+  };
 
   const startTest = (): void => {
     setReactionTime(null);
@@ -120,7 +124,11 @@ export default function ReactionTest() {
           {getText()}
         </Text>
       </Pressable>
-      <DefaultButton style={{position: "absolute", bottom: 100}} onPress={onSubmit} title="Next Challenge" />
+      <DefaultButton
+        style={{ position: "absolute", bottom: 100 }}
+        onPress={onSubmit}
+        title="Next Challenge"
+      />
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { View, ScrollView, Text, Alert } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
@@ -12,9 +12,13 @@ import { authStyles } from "@/styles/authStyles";
 import { signUpWithEmail } from "@/utils/firebase/auth";
 import { createUser } from "@/utils/firebase/users";
 import { router } from "expo-router";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function TeamSignup() {
   const { signupData, setTeamData, clear } = useSignupStore();
+
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
 
   const {
     control,
@@ -53,7 +57,7 @@ export default function TeamSignup() {
       <Text style={globalStyles.title}>STEMM LABS</Text>
 
       <View style={authStyles.form}>
-        <Text style={authStyles.subheading}>Create New Team</Text>
+        <Text style={[authStyles.subheading, {color: theme.text}]}>Create New Team</Text>
 
         <Controller
           control={control}
@@ -69,9 +73,9 @@ export default function TeamSignup() {
           )}
         />
 
-        <Text style={authStyles.subheading}>OR</Text>
+        <Text style={[authStyles.subheading, {color: theme.text}]}>OR</Text>
 
-        <Text style={authStyles.subheading}>Join An Existing Team</Text>
+        <Text style={[authStyles.subheading, {color: theme.text}]}>Join An Existing Team</Text>
 
         <Controller
           control={control}

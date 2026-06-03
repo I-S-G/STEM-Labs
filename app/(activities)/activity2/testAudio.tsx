@@ -7,13 +7,19 @@ import ResultsScreen from "./result";
 import Input from "@/components/input";
 import { useSoundStore } from "@/store/soundStore";
 import DefaultButton from "@/components/buttons/defaultButton";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
+import { useTheme } from "@/hooks/useTheme";
 
 type FormValues = {
   location: string;
 };
 
 export default function TestAudio() {
+  const addEntry = useSoundStore((s) => s.addEntry);
+
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
       location: "",
@@ -23,8 +29,6 @@ export default function TestAudio() {
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [dbLevel, setDbLevel] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
-
-  const addEntry = useSoundStore((s) => s.addEntry);
 
   useEffect(() => {
     (async () => {
@@ -48,7 +52,7 @@ export default function TestAudio() {
         if (status.isRecording && status.metering !== undefined) {
           setDbLevel(status.metering);
         }
-      }
+      },
     );
 
     setRecording(recording);
@@ -69,20 +73,16 @@ export default function TestAudio() {
     setRecording(null);
     setDbLevel(null);
 
-    Alert.alert(
-      "Saved",
-      "Record another location?",
-      [
-        {
-          text: "Finish",
-          onPress: () => setFinished(true),
-        },
-        {
-          text: "Record Another",
-          onPress: () => reset(),
-        },
-      ]
-    );
+    Alert.alert("Saved", "Record another location?", [
+      {
+        text: "Finish",
+        onPress: () => setFinished(true),
+      },
+      {
+        text: "Record Another",
+        onPress: () => reset(),
+      },
+    ]);
   };
 
   const onSubmit = (data: FormValues) => {
@@ -99,17 +99,13 @@ export default function TestAudio() {
 
   return (
     <View style={globalStyles.screen}>
-        <Text style= {globalStyles.title}> Measure Sound Level </Text>
+      <Text style={globalStyles.title}> Measure Sound Level </Text>
       <Controller
         control={control}
         name="location"
         rules={{ required: "Location is required" }}
         render={({ field: { onChange, value } }) => (
-          <Input
-            label="Location"
-            value={value}
-            onChangeText={onChange}
-          />
+          <Input label="Location" value={value} onChangeText={onChange} />
         )}
       />
 

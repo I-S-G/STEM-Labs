@@ -1,4 +1,5 @@
-import { globalStyles } from "@/styles/globalStyles";
+import { useTheme } from "@/hooks/useTheme";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
@@ -7,6 +8,9 @@ type Props = {
 };
 
 export function IdleScreen({ onStart }: Props) {
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+
   return (
     <View style={[globalStyles.screen, s.root]}>
       <Text style={globalStyles.title}>Circle Trace</Text>

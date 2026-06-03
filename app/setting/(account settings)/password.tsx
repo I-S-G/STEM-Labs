@@ -10,9 +10,13 @@ import { changePassword } from "@/utils/firebase/users";
 import Input from "@/components/input";
 import DefaultButton from "@/components/buttons/defaultButton";
 import { AccountSettingStyles } from "@/styles/settingsStyles";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function Password() {
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+  
   const {
     control,
     handleSubmit,

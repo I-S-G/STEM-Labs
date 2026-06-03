@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import { AppUser, useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTheme } from "@/hooks/useTheme";
 
 const formatLabel = (key: string) => {
   return key.replace(/([A-Z])/g, " $1");
@@ -19,6 +20,9 @@ const fieldOrder: (keyof AppUser)[] = [
 export default function Profile() {
   const user = useUserStore((s) => s.currentUser);
   const loadUser = useUserStore((s) => s.loadUser);
+  
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
 
   useEffect(() => {
     loadUser();

@@ -1,16 +1,20 @@
 import { View, Text, ScrollView, Image } from "react-native";
 import { router } from "expo-router";
 import DefaultButton from "@/components/buttons/defaultButton";
-import { globalStyles } from "@/styles/globalStyles";
+import { createGlobalStyles } from "@/styles/globalStyles";
 import ActivitySection from "./activitySection";
 import { ActivityProps } from "@/types/types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTheme } from "@/hooks/useTheme";
 
 type Props = {
   activity: ActivityProps;
 };
 
 export default function ActivityTemplate({ activity }: Props) {
+  const { theme } = useTheme();
+  const globalStyles = createGlobalStyles(theme);
+
   return (
     <SafeAreaView style={globalStyles.screen}>
       <View style={globalStyles.screen}>

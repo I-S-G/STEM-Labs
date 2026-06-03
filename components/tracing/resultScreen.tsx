@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { GAME_DURATION } from "@/constants/traceGame";
 import { Colors } from "@/constants/colors";
+import { useTheme } from "@/hooks/useTheme";
 
 type Props = {
   score: number; // 0-100 percentage
@@ -23,11 +24,13 @@ export function ResultScreen({
   onPlayAgain,
   onMenu,
 }: Props) {
+  const { theme } = useTheme();
+
   const { text, color } = label(score);
   const offSec = GAME_DURATION - trackedSec;
 
   return (
-    <View style={s.root}>
+    <View style={[s.root, {backgroundColor: theme.background}]}>
       <View style={[s.scoreRing, { borderColor: color }]}>
         <Text style={[s.scoreNum, { color }]}>
           {score}
@@ -70,7 +73,6 @@ export function ResultScreen({
 const s = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: Colors.background,
     alignItems: "center",
     justifyContent: "center",
     gap: 20,

@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import { authListener } from "@/utils/firebase/auth";
 import { getUserData } from "@/utils/firebase/users";
 import { useUserStore } from "@/store/userStore";
-import { Colors } from "@/constants/colors";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useTheme } from "@/hooks/useTheme";
 
 export default function RootLayout() {
   const setCurrentUser = useUserStore((s) => s.setCurrentUser);
+  const { theme } = useTheme();
 
   const [initializing, setInitializing] = useState(true);
 
@@ -40,7 +41,7 @@ export default function RootLayout() {
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: Colors.background },
+            contentStyle: { backgroundColor: theme.background },
           }}
         >
           <Stack.Screen name="(tabs)" />
