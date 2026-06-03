@@ -1,6 +1,6 @@
 import { globalStyles } from "@/styles/globalStyles";
 import { Link } from "expo-router";
-import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
+import { View, Text, KeyboardAvoidingView, Platform, Alert } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,8 +27,12 @@ export default function Login() {
   });
 
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
-    const { user } = await signInWithEmail(data.email, data.password);
-    alert(JSON.stringify(user));
+    try {
+      await signInWithEmail(data.email, data.password);
+      Alert.alert("Success", "Logged In");
+    } catch(e: any) {
+      Alert.alert("Failed", e.message || "Failed to Login")
+    }
   };
 
   return (

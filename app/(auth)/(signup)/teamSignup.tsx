@@ -1,5 +1,5 @@
 import { globalStyles } from "@/styles/globalStyles";
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text, Alert } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,17 +36,16 @@ export default function TeamSignup() {
       ...teamData,
     };
 
-    const { user } = await signUpWithEmail(
-      finalPayload.email,
-      finalPayload.password,
-    );
-
     try {
+      const { user } = await signUpWithEmail(
+        finalPayload.email,
+        finalPayload.password,
+      );
       await createUser(user, finalPayload);
       clear();
-      router.push("/")
+      router.push("/");
     } catch (e: any) {
-      alert(e.message || "Failed");
+      Alert.alert("Failed", e.message || "Failed To Signup");
     }
   };
   return (
@@ -96,7 +95,7 @@ export default function TeamSignup() {
           title="Sign Up"
           style={{ marginTop: 20 }}
           onPress={handleSubmit(onSubmit)}
-          disabled= {isSubmitting}
+          disabled={isSubmitting}
         />
       </View>
     </ScrollView>
