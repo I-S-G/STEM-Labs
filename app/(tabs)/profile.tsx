@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
-import { createGlobalStyles } from "@/styles/globalStyles";
-import { AppUser, useUserStore } from "@/store/userStore";
-import { useEffect } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
+import { AppUser, useUserStore } from "@/store/userStore";
+import { createGlobalStyles } from "@/styles/globalStyles";
+import { useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
+//inserts space before every capital letter eg: firstName -> first name
 const formatLabel = (key: string) => {
   return key.replace(/([A-Z])/g, " $1");
 };
@@ -20,7 +21,7 @@ const fieldOrder: (keyof AppUser)[] = [
 export default function Profile() {
   const user = useUserStore((s) => s.currentUser);
   const loadUser = useUserStore((s) => s.loadUser);
-  
+
   const { theme } = useTheme();
   const globalStyles = createGlobalStyles(theme);
 

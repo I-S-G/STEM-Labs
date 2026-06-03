@@ -1,8 +1,8 @@
-import { useState } from "react";
-import RecordVideo from "@/components/drop recording/recordVideo";
-import MarkTimestamp from "@/components/drop recording/markTimestamp";
 import DropResult from "@/components/drop recording/dropResult";
+import MarkTimestamp from "@/components/drop recording/markTimestamp";
+import RecordVideo from "@/components/drop recording/recordVideo";
 import { Href, router } from "expo-router";
+import { useState } from "react";
 
 type Step = "record" | "mark" | "result";
 
@@ -28,7 +28,7 @@ export default function RecordDropFlow({ redirectRoute, message }: Props) {
     router.push(redirectRoute);
   };
 
-  // 🎥 RECORD → MARK
+  // RECORD → MARK
   if (step === "record") {
     return (
       <RecordVideo
@@ -41,7 +41,7 @@ export default function RecordDropFlow({ redirectRoute, message }: Props) {
     );
   }
 
-  // 🎬 MARK → RESULT
+  // MARK → RESULT
   if (step === "mark" && videoUri) {
     return (
       <MarkTimestamp
@@ -54,7 +54,7 @@ export default function RecordDropFlow({ redirectRoute, message }: Props) {
     );
   }
 
-  // 📊 RESULT
+  // RESULT
   if (step === "result" && marks) {
     return <DropResult marks={marks} onReset={onReset} />;
   }

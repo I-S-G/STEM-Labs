@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react-native";
 import Home from "@/app/(tabs)";
+import { render, screen } from "@testing-library/react-native";
 
 // Mock dependencies
 jest.mock("@/data/activities", () => ({
@@ -10,10 +10,19 @@ jest.mock("@/data/activities", () => ({
 }));
 
 jest.mock("@/styles/globalStyles", () => ({
-  globalStyles: {
+  createGlobalStyles: () => ({
     screen: {},
     title: {},
-  },
+  }),
+}));
+
+jest.mock("@/hooks/useTheme", () => ({
+  useTheme: () => ({
+    theme: {
+      background: "#000",
+      text: "#fff",
+    },
+  }),
 }));
 
 jest.mock("@/components/activityCard", () => {

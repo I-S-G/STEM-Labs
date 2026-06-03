@@ -1,10 +1,21 @@
-import { render, screen, waitFor } from "@testing-library/react-native";
 import Profile from "@/app/(tabs)/profile";
 import { useUserStore } from "@/store/userStore";
+import { render, screen, waitFor } from "@testing-library/react-native";
 
+jest.mock("@/hooks/useTheme", () => ({
+  useTheme: () => ({
+    theme: {
+      background: "#000",
+      text: "#fff",
+    },
+  }),
+}));
 
 jest.mock("@/styles/globalStyles", () => ({
-  globalStyles: { screen: {}, title: {} },
+  createGlobalStyles: () => ({
+    screen: {},
+    title: {},
+  }),
 }));
 
 jest.mock(
@@ -27,7 +38,6 @@ jest.mock("@/utils/firebase/auth", () => ({
   logOut: jest.fn(),
 }));
 
-
 import { getUserData } from "@/utils/firebase/users";
 const mockedGetUserData = getUserData as jest.Mock;
 
@@ -45,7 +55,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-//Tests 
+//Tests
 
 describe("Profile (integration)", () => {
   it("renders the title and section heading", () => {
