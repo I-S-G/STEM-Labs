@@ -38,7 +38,6 @@ export default function Signup() {
 
   const onSubmit: SubmitHandler<SignupForm> = (data) => {
     setSignupData(data);
-    alert(JSON.stringify(data));
     router.push("/teamSignup");
   };
 
